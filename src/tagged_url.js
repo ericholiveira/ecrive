@@ -15,13 +15,21 @@ class TaggedUrl{
     }
     return url
   }
-  buildUrl(){
-    let url = this.path.reduce((acc,part,i)=>acc + this.template[i]+this.path[i].generate(),'')
+  buildUrl(options={}){
+    const pathParam = options.path ||{}
+    const queryParam = options.query ||{}
+    let url = this.path.reduce((acc,part,i)=>{
+      const name = this.path[i].name
+      const p = name in pathParam? pathParam[name]:this.path[i].generate()
+     return acc+this.template[i]+p
+    },'')
     if(this.query.length){
       url += this.template[this.path.length]
     }
     const queryPart = this.query.reduce((acc,part,i)=>{
-      return acc.concat([part.name+'='+this.query[i].generate()])
+      const name = this.query[i].name
+      const q = name in queryParam? queryParam[name]:this.query[i].generate()
+      return acc.concat([part.name+'='+q])
     },[])
     const queryStr = queryPart.join('&')
     return url.indexOf('&')>0?`${url}&${queryStr}`:`${url}${queryStr}`

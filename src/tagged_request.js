@@ -7,17 +7,17 @@ module.exports = function TaggedRequest(title,taggedUrl){
     taggedUrl,
     examples: []
   }
-  const call = async function(){
-    const url = container.taggedUrl.buildUrl()
-    const _body = {}
-    const _headers = {}
+  const call = async function(options){
+    const url = container.taggedUrl.buildUrl(options)
+    const body = {}
+    const headers = {}
     const {method} = container.taggedUrl
     const request = {
       url,
       method,
       json:true,
-      body:_body,
-      headers:_headers,
+      body,
+      headers
     }
     const response = await new Promise((resolve,reject)=>requestLib(request, (err,d)=>err?reject(err):resolve(d)))
     container.examples.push(new Example({request,response}))
