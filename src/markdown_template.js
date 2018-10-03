@@ -1,27 +1,23 @@
-module.exports = function({title,documentUrl, pathParameters=[],queryParameters=[],body,headers, request, response}){
+
+module.exports = function({title,documentUrl, path=[],query=[], examples}){
   return `
-    ### ${title}
-    
-    ##### ${documentUrl}
-    
-    Path
-    ${pathParameters.map(p=>"- "+p)}
-    
-    Query
-    ${queryParameters.map(q=>"- "+q)}
-    
-    Body
-    ${body}
-    
-    Headers
-    ${headers}
-    
-    ##### EXAMPLE
-    
-    ${request}
-    
-    
-    ${response}
-    
-  `
+### ${title}
+
+##### ${documentUrl}
+
+Path
+${path.map(p=>"- "+p.name).join('\n')}
+
+Query
+${query.map(q=>"- "+q.name).join('\n')}
+
+Body
+${/*body*/1}
+
+Headers
+${/*headers*/2}
+
+##### EXAMPLE
+
+${examples}`
 }

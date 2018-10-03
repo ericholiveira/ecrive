@@ -1,19 +1,17 @@
 const requestLib = require("request")
-const Parameter = require("./parameter")
-const Documentation = require("./documentation")
-class TaggedRequest{
-  constructor(options){
-    this.taggedUrl = options.taggedUrl
-    this.documentation = null
+const Example = require("./example")
+const markdownTemplate = require("./markdown_template")
+
+module.exports = function TaggedRequest(title,taggedUrl){
+  const container = {
+    taggedUrl,
+    examples: []
   }
-  async call(parametersDescription){
-    const parameters = this.taggedUrl.pathParameters.concat(this.taggedUrl.queryParameters)
-      .map(p=>new Parameter(p,parametersDescription[p]))
-      .map(p=>p.generate())
-    const url = this.taggedUrl.buildUrl(parameters)
-    const _body = parametersDescription ? parametersDescription[Symbol.body]:null
-    const _headers = parametersDescription ? parametersDescription[Symbol.headers]:null
-    const {method} = this.taggedUrl
+  const call = async function(){
+    const url = container.taggedUrl.buildUrl()
+    const _body = {}
+    const _headers = {}
+    const {method} = container.taggedUrl
     const request = {
       url,
       method,
@@ -22,12 +20,18 @@ class TaggedRequest{
       headers:_headers,
     }
     const response = await new Promise((resolve,reject)=>requestLib(request, (err,d)=>err?reject(err):resolve(d)))
-    this.documentation = new Documentation({taggedUrl:this.taggedUrl,request,response})
-    return response.body
+    container.examples.push(new Example({request,response}))
+    return response
   }
-  getDocs(){
-    return this.documentation && this.documentation.toString()
+  call.getDocs = function(){
+    const documentUrl = container.taggedUrl.buildDocumentationUrl()
+    return markdownTemplate({
+      title,
+      documentUrl,
+      path:container.taggedUrl.path,
+      query: container.taggedUrl.query,
+      examples:container.examples
+    })
   }
+  return call
 }
-
-module.exports = TaggedRequest

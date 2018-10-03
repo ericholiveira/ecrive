@@ -36,8 +36,7 @@ class Parameter{
   }
   generate(){
     if(this.factory){
-      this.example = this.factory(this.enumOptions)
-      return this.example
+      return this.factory(this.enumOptions)
     }
     if(this.required){
       throw new Error(`No factory found for required parameter ${this.name}`)

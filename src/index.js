@@ -1,1 +1,1 @@
-module.exports = Object.assign({}, {test:require("./test_fn")}, require("./tagged_templates"))
+module.exports = require("./tagged_templates")
