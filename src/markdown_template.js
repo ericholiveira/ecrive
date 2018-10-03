@@ -6,10 +6,10 @@ module.exports = function({title,documentUrl, path=[],query=[], examples}){
 ##### ${documentUrl}
 
 Path
-${path.map(p=>"- "+p.name).join('\n')}
+${path.map(p=>`- ${p.name}: ${p.type}`).join('\n')}
 
 Query
-${query.map(q=>"- "+q.name).join('\n')}
+${query.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
 
 Body
 ${/*body*/1}
