@@ -22,7 +22,9 @@ class Parameter{
   constructor(name,options={}){
     options.type = options.type || String
     this.name = name
-    this.enumOptions = options.enumOptions
+    this.enumOptions = options.enumOptions?options.enumOptions:null
+    this.enumOptions = Array.isArray(options) && !this.enumOptions ? options:this.enumOptions
+    options.enumOptions = this.enumOptions
     this.description = options.description || ""
     this.type = getType(options)
     if(!this.type){
