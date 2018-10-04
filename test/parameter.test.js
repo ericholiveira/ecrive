@@ -47,15 +47,3 @@ test('A Parameter must generate dummy data from factory', async () => {
   const parameter = new Parameter(name,{type,factory})
   expect(parameter.generate()).to.equal(name)
 })
-/*
-options.type = options.type || String
-    this.name = name
-    this.enumOptions = options.enumOptions
-    this.description = options.description || ""
-    this.type = getType(options)
-    if(!this.type){
-      throw new Error(`No type found for parameter ${name}`)
-    }
-    this.required = options.required || true
-    this.factory = options.factory || factories[this.type]
-* */
