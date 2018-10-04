@@ -7,7 +7,7 @@ test('A Parameter must support the basic types', async () => {
     expect(parameter.type).to.equal(type.name)
     expect(parameter.name).to.equal(name)
     expect(parameter.description).to.equal("")
-    expect(parameter.required).to.equal(false)
+    expect(parameter.required).to.equal(true)
   }
   testType(Number)
   testType(String)
@@ -26,12 +26,12 @@ test('A Parameter must support enums', async () => {
 })
 
 test('A Parameter must support all basic options', async () => {
-  const [name,type,description,required,factory] = ["name",String,"description",true, ()=>name]
+  const [name,type,description,required,factory] = ["name",String,"description",false, ()=>name]
   const parameter = new Parameter(name,{type,description,required,factory})
   expect(parameter.type).to.equal(type.name)
   expect(parameter.name).to.equal(name)
   expect(parameter.description).to.equal(description)
-  expect(parameter.required).to.equal(required)
+  expect(parameter.required).to.equal(false)
   expect(parameter.factory).to.equal(factory)
 })
 

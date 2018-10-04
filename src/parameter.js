@@ -30,7 +30,7 @@ class Parameter{
     if(!this.type){
       throw new Error(`No type found for parameter ${name}`)
     }
-    this.required = options.required?true:false
+    this.required = options.required !== false
     this.factory = options.factory || factories[this.type]
   }
   generate(){
