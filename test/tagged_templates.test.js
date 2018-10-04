@@ -28,7 +28,7 @@ test('Test builded', async () => {
   const taggedRequest = post(params)`https://google.com/${"language"}/path/${"id"}?${["query1","query2"]}`
   //const taggedUrl = get`https://insights.winnin.com/ping?${["query1","query2"]}`
   //console.log(taggedRequest)
-  const a =await taggedRequest()
+  const a =await taggedRequest({query:{query1:"ab"}, body:{body2:8},path:{id:-97},headers:{header2:"bla"}})
   console.log(taggedRequest.getDocs())
   return a
 

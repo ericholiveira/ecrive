@@ -34,10 +34,12 @@ class TaggedUrl{
     const queryStr = queryPart.join('&')
     return url.indexOf('&')>0?`${url}&${queryStr}`:`${url}${queryStr}`
   }
-  buildBody(example={}){
+  buildBody(options={}){
+    const example = options.body || {}
     return this.body.reduce((acc,p)=>Object.assign({[p.name]:p.generate()},acc),example)
   }
-  buildHeaders(example={}){
+  buildHeaders(options={}){
+    const example = options.headers || {}
     return this.headers.reduce((acc,p)=>Object.assign({[p.name]:p.generate()},acc),example)
   }
 }
