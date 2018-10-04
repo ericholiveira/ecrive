@@ -19,6 +19,10 @@ test('A Parameter must support enums', async () => {
   const parameter = new Parameter(name,{enumOptions:[1,2,3]})
   expect(parameter.type).to.equal("Enum")
   expect(parameter.name).to.equal(name)
+
+  const parameter2 = new Parameter(name,[1,2,3])
+  expect(parameter2.type).to.equal("Enum")
+  expect(parameter2.name).to.equal(name)
 })
 
 test('A Parameter must support all basic options', async () => {
@@ -46,4 +50,10 @@ test('A Parameter must generate dummy data from factory', async () => {
   const [name,type,factory] = ["name",String, ()=>name]
   const parameter = new Parameter(name,{type,factory})
   expect(parameter.generate()).to.equal(name)
+})
+test('A Parameter must generate dummy data from enum', async () => {
+  const name = "name"
+  const parameter = new Parameter(name,[1,2,3])
+  const generated = parameter.generate()
+  expect(generated >=1 && generated <= 3).to.equal(true)
 })
