@@ -9,7 +9,7 @@ class TaggedUrl{
     this.headers = Object.keys(description.headers||{}).map(p=>new Parameter(p,description.headers && description.headers[p]))
   }
   buildDocumentationUrl(){
-    let url = this.path.reduce((acc,part,i)=>`${acc}${this.template[i]}<${part.name}>`,'')
+    let url = this.path.reduce((acc,part,i)=>`${acc}${this.template[i]}:${part.name}`,'')
     if(this.query.length){
       url += this.template[this.path.length]
     }
