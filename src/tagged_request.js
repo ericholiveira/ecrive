@@ -24,12 +24,9 @@ module.exports = function TaggedRequest(title,taggedUrl){
     return response
   }
   call.getDocs = function(){
-    const documentUrl = container.taggedUrl.buildDocumentationUrl()
     return markdownTemplate({
       title,
-      documentUrl,
-      path:container.taggedUrl.path,
-      query: container.taggedUrl.query,
+      taggedUrl:container.taggedUrl,
       examples:container.examples
     })
   }

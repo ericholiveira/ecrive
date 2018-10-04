@@ -1,21 +1,21 @@
 
-module.exports = function({title,documentUrl, path=[],query=[], examples}){
+module.exports = function({title,taggedUrl, examples}){
   return `
 ### ${title}
 
-##### ${documentUrl}
+##### ${taggedUrl.buildDocumentationUrl()}
 
 Path
-${path.map(p=>`- ${p.name}: ${p.type}`).join('\n')}
+${taggedUrl.path.map(p=>`- ${p.name}: ${p.type}`).join('\n')}
 
 Query
-${query.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
+${taggedUrl.query.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
 
 Body
-${/*body*/1}
+${taggedUrl.body.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
 
 Headers
-${/*headers*/2}
+${taggedUrl.headers.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
 
 ##### EXAMPLE
 
