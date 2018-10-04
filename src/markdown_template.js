@@ -1,23 +1,27 @@
+const buildTable = (title, params)=>params && params.length?`${title}
 
+|  Parameters  |  Types  |  Required  |  Options  |
+| ------------ | ------- | ---------- | --------- |
+${params.map(p=>`|  ${p.name}  |  ${p.type}  |  ${p.required}  |  ${p.enumOptions?p.enumOptions:"--"}  |`).join('\n')}
+`: ''
+
+const buildExample = (examples)=>`##### EXAMPLE
+  ${examples.map(e=>JSON.stringify(e.request.body))}
+`
 module.exports = function({title,taggedUrl, examples}){
   return `
 ### ${title}
 
 ##### ${taggedUrl.buildDocumentationUrl()}
 
-Path
-${taggedUrl.path.map(p=>`- ${p.name}: ${p.type}`).join('\n')}
+${buildTable('Path',taggedUrl.path)}
 
-Query
-${taggedUrl.query.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
+${buildTable('Query',taggedUrl.query)}
 
-Body
-${taggedUrl.body.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
+${buildTable('Body',taggedUrl.body)}
 
-Headers
-${taggedUrl.headers.map(q=>`- ${q.name}: ${q.type}`).join('\n')}
+${buildTable('Headers',taggedUrl.headers)}
 
-##### EXAMPLE
-
-${examples}`
+${buildExample(examples)}
+`
 }

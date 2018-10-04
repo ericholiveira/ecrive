@@ -34,6 +34,12 @@ class TaggedUrl{
     const queryStr = queryPart.join('&')
     return url.indexOf('&')>0?`${url}&${queryStr}`:`${url}${queryStr}`
   }
+  buildBody(example={}){
+    return this.body.reduce((acc,p)=>Object.assign({[p.name]:p.generate()},acc),example)
+  }
+  buildHeaders(example={}){
+    return this.headers.reduce((acc,p)=>Object.assign({[p.name]:p.generate()},acc),example)
+  }
 }
 
 module.exports = TaggedUrl

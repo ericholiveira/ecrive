@@ -13,7 +13,7 @@ const params = {
     body1:Date,
     body2:[1,2,3]
   },
-  header:{
+  headers:{
     header1:{
       type:String,
       required:false
