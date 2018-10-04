@@ -1,6 +1,6 @@
 const requestLib = require("request")
 const Example = require("./example")
-const markdownTemplate = require("./markdown_template")
+const markdownTemplate = require("./templates/markdown")
 
 module.exports = function TaggedRequest(title,taggedUrl){
   const container = {
@@ -24,11 +24,7 @@ module.exports = function TaggedRequest(title,taggedUrl){
     return response
   }
   call.getDocs = function(){
-    return markdownTemplate({
-      title,
-      taggedUrl:container.taggedUrl,
-      examples:container.examples
-    })
+    return markdownTemplate(title,container.taggedUrl,container.examples)
   }
   return call
 }

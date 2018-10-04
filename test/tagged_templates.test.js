@@ -1,5 +1,5 @@
 const {assert} = require("chai")
-const {get,post} = require("../src/tagged_templates")("TESTE!!!!!!")
+const {get,post,getDocs} = require("../src/tagged_templates")("TESTE!!!!!!")
 const params = {
   path: {
     language: String,
@@ -29,7 +29,7 @@ test('Test builded', async () => {
   //const taggedUrl = get`https://insights.winnin.com/ping?${["query1","query2"]}`
   //console.log(taggedRequest)
   const a =await taggedRequest({query:{query1:"ab"}, body:{body2:8},path:{id:-97},headers:{header2:"bla"}})
-  console.log(taggedRequest.getDocs())
+  console.log(getDocs("Uma bela introdução"))
   return a
 
 })

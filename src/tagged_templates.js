@@ -1,11 +1,14 @@
 const TaggedRequest = require('./tagged_request')
 const TaggedUrl = require('./tagged_url')
 
+const requests = []
 const buildTaggedRequest = function(title,method, template,values,description={}){
   const lastItem = values.length? values[values.length -1] : []
   const query = Array.isArray(lastItem) ? lastItem : []
   const path  = values.length && Array.isArray(lastItem) ? values.slice(0,values.length-1) : values
-  return TaggedRequest(title,new TaggedUrl({template,method,path,query,description}))
+  const taggedRequest = TaggedRequest(title,new TaggedUrl({template,method,path,query,description}))
+  requests.push(taggedRequest)
+  return taggedRequest
 }
 const forTitleAndMethod = function(title,method){
   return function(templateOrObject, ...values){
@@ -28,6 +31,9 @@ module.exports = function(title){
     connect:forTitleAndMethod(title,'connect'),
     options:forTitleAndMethod(title,'options'),
     trace:forTitleAndMethod(title,'trace'),
-    patch:forTitleAndMethod(title,'patch')
+    patch:forTitleAndMethod(title,'patch'),
+    getDocs(introduction=""){
+      return [introduction].concat(requests.map(r=>r.getDocs())).join("\n\n")
+    }
   }
 }
