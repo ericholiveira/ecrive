@@ -11,14 +11,11 @@ const factories = {
   }
 }
 const getType = function(options){
-  if(typeof options === 'function'){
-    return options.name
-  }
-  if(Array.isArray(options)){
+  if(options.enumOptions){
     return "Enum"
   }
   if(options.type){
-    return typeof options.type === 'function'?options.name:options
+    return typeof options.type === 'function'?options.type.name:options
   }
 }
 class Parameter{
@@ -31,7 +28,7 @@ class Parameter{
     if(!this.type){
       throw new Error(`No type found for parameter ${name}`)
     }
-    this.required = options.required || true
+    this.required = options.required?true:false
     this.factory = options.factory || factories[this.type]
   }
   generate(){

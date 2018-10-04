@@ -1,7 +1,7 @@
 const {assert} = require("chai")
 const {get,post} = require("../src/tagged_templates")("TESTE!!!!!!")
 test('Test builded', async () => {
-  const taggedRequest = post({
+  /*const taggedRequest = post({
     path: {
       language: String,
       id: Number,
@@ -15,6 +15,6 @@ test('Test builded', async () => {
   //console.log(taggedRequest)
   const a =await taggedRequest()
   console.log(taggedRequest.getDocs())
-  return a
+  return a*/
 
 })
