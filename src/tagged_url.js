@@ -10,7 +10,7 @@ class TaggedUrl{
   }
   buildDocumentationUrl(){
     let url = this.path.reduce((acc,part,i)=>`${acc}${this.template[i]}:${part.name}`,'')
-    if(this.query.length){
+    if(this.template.length>this.path.length){
       url += this.template[this.path.length]
     }
     return url
@@ -34,11 +34,19 @@ class TaggedUrl{
     const queryStr = queryPart.join('&')
     return url.indexOf('&')>0?`${url}&${queryStr}`:`${url}${queryStr}`
   }
-  buildBody(options={}){
+  buildBody(options){
+    if(!options && this.body.length===0){
+      return null
+    }
+    options = options || {}
     const example = options.body || {}
     return this.body.reduce((acc,p)=>Object.assign({[p.name]:p.generate()},acc),example)
   }
-  buildHeaders(options={}){
+  buildHeaders(options){
+    if(!options && this.headers.length===0){
+      return null
+    }
+    options = options || {}
     const example = options.headers || {}
     return this.headers.reduce((acc,p)=>Object.assign({[p.name]:p.generate()},acc),example)
   }

@@ -1,15 +1,17 @@
 const buildExampleJson = require("./formatted_json")
 
+const buildSectionIfNotNull=(title,object)=>!object?"":`
+**${title}**
+
+${buildExampleJson(object)}
+
+`
 module.exports = (request,response)=>`\`\`\`
-\`${request.method.toUpperCase()}\` ${request.url}
+\`${request.method.toUpperCase()}\` ${request.uri}
 
-**Headers**
+${buildSectionIfNotNull('Headers', request.headers)}
 
-${buildExampleJson(request.headers)}
-
-**Body**
-
-${buildExampleJson(request.body)}
+${buildSectionIfNotNull('Body', request.headers)}
 
 **Result**
  
