@@ -8,12 +8,12 @@ module.exports = function TaggedRequest(title,taggedUrl){
     examples: []
   }
   const call = async function(options){
-    const url = container.taggedUrl.buildUrl(options)
+    const uri = container.taggedUrl.buildUrl(options)
     const headers = container.taggedUrl.buildHeaders(options)
     const body = container.taggedUrl.buildBody(options)
     const {method} = container.taggedUrl
     const request = {
-      url,
+      uri,
       method,
       json:true,
       body,

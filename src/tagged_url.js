@@ -23,7 +23,7 @@ class TaggedUrl{
       const p = name in pathParam? pathParam[name]:this.path[i].generate()
      return acc+this.template[i]+p
     },'')
-    if(this.query.length){
+    if(this.template.length>this.path.length){
       url += this.template[this.path.length]
     }
     const queryPart = this.query.reduce((acc,part,i)=>{
