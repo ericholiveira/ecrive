@@ -1,5 +1,6 @@
 const TaggedRequest = require('./tagged_request')
 const TaggedUrl = require('./tagged_url')
+const fs = require("fs")
 
 const requests = []
 const buildTaggedRequest = function(title,method, template,values,description={}){
@@ -32,8 +33,9 @@ module.exports = function(title){
     options:forTitleAndMethod(title,'options'),
     trace:forTitleAndMethod(title,'trace'),
     patch:forTitleAndMethod(title,'patch'),
-    getDocs(introduction=""){
-      return [introduction].concat(requests.map(r=>r.getDocs())).join("\n\n")
+    getDocs(introduction="",{path}){
+      const docs = [introduction].concat(requests.map(r=>r.getDocs())).join("\n\n")
+      fs.writeFileSync(path || "API.md",docs)
     }
   }
 }
