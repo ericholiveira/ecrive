@@ -8,8 +8,10 @@ const buildTaggedRequest = function(title,method, template,values,description={}
   const query = Array.isArray(lastItem) ? lastItem : []
   const path  = values.length && Array.isArray(lastItem) ? values.slice(0,values.length-1) : values
   if(moduleData.globals.__SERVER_URL__){
-    template[0] = moduleData.__SERVER_URL__+template[0]
+    template = [].concat(template)
+    template[0] = moduleData.globals.__SERVER_URL__+template[0]
   }
+  
   const taggedRequest = TaggedRequest(title,new TaggedUrl({template,method,path,query,description}))
   requests.push(taggedRequest)
   return taggedRequest
@@ -36,7 +38,7 @@ const moduleData = function(title){
     options:forTitleAndMethod(title,'options'),
     trace:forTitleAndMethod(title,'trace'),
     patch:forTitleAndMethod(title,'patch'),
-    getDocs(introduction="",{path}){
+    getDocs(introduction="",{path}={}){
       const docs = [introduction].concat(requests.map(r=>r.getDocs())).join("\n\n")
       fs.writeFileSync(path || "API.md",docs)
     }
