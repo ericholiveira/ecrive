@@ -7,6 +7,9 @@ const buildTaggedRequest = function(title,method, template,values,description={}
   const lastItem = values.length? values[values.length -1] : []
   const query = Array.isArray(lastItem) ? lastItem : []
   const path  = values.length && Array.isArray(lastItem) ? values.slice(0,values.length-1) : values
+  if(moduleData.globals.__SERVER_URL__){
+    template[0] = moduleData.__SERVER_URL__+template[0]
+  }
   const taggedRequest = TaggedRequest(title,new TaggedUrl({template,method,path,query,description}))
   requests.push(taggedRequest)
   return taggedRequest
@@ -22,7 +25,7 @@ const forTitleAndMethod = function(title,method){
     }
   }
 }
-module.exports = function(title){
+const moduleData = function(title){
   return {
     get:forTitleAndMethod(title,'get'),
     head:forTitleAndMethod(title,'head'),
@@ -39,3 +42,7 @@ module.exports = function(title){
     }
   }
 }
+moduleData.globals={
+  __SERVER_URL__: ""
+}  
+module.exports = moduleData

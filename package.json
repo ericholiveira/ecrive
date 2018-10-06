@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm version"
   },
   "keywords": [],
   "author": "",
