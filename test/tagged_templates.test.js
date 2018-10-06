@@ -1,4 +1,4 @@
-const {assert} = require("chai")
+const {expect} = require("chai")
 const {get,post,getDocs} = require("../src/tagged_templates")("TESTE!!!!!!")
 const params = {
   path: {
@@ -31,7 +31,7 @@ test('Test builded', async () => {
 })
 
 test('Test builded', async () => {
-  const taggedRequest = post(params)`https://yahoo.com.br/`
-  return await taggedRequest({query:{query1:"ab"}, body:{body2:8},path:{id:-97},headers:{header2:"bla"}})
+  const taggedRequest = get`https://test.test/`
+  expect(taggedRequest.taggedUrl.buildUrl()).to.equal("https://test.test/")
 
 })
